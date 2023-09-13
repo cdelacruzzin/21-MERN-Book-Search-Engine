@@ -11,8 +11,17 @@ const {resolvers, typeDefs} = require('./schemas');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+const server = new ApolloServer({   //initializes a new Apollo Server with the typeDefs, resolver functions and the auth context 
+  typeDefs,
+  resolvers,
+  context: authMiddleware   //before a request is processed by resolvers, it wil pass through this middleware. it checks if the request has a valid jwt, if so, attach it to the request's context.
+})
+
+
+
+
+app.use(express.urlencoded({ extended: true }));  //middleware to parse incoming url-encoded data(form submissions)
+app.use(express.json());  //middleware to parse incoming JSON data (API requests)
 
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
