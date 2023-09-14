@@ -29,6 +29,7 @@ module.exports = {
       console.log('Invalid token');
     }
 
+    console.log(req)
     return req; //return the request object so it can be passed to the resolver as "context"
   },
 
