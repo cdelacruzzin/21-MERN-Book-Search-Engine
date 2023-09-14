@@ -33,7 +33,7 @@ app.get('/', (req, res) => {  //defines a router for the "/" endpoint
 //creates a new instance of the Apollo Server with the graphql schema
 const startApolloServer = async () => { //async function to start the Apollo server and apply its middlewares
   await server.start();   //starts the Apollo Server
-  server.appyMiddleware({ app });
+  server.applyMiddleware({ app });
 
   db.once('open', () => {
     app.listen(PORT, () => {

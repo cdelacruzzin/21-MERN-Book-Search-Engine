@@ -11,8 +11,9 @@ type User {
 }
 
 type Book {
+    _id: ID
     bookId: String!
-    authors: String
+    authors: [String]
     description: String!
     image: String
     link: String
@@ -32,13 +33,11 @@ type Query {
 type mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    removeBook(bookId: bookId!): User
+    #removeBook(Book: bookId!): User
 
 
     #still need to save a book
 }
 
-
-
-
 `
+module.exports = typeDefs;

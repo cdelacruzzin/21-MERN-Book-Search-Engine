@@ -4,6 +4,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import { createUser } from '../utils/API';
 import Auth from '../utils/auth';
 
+
 const SignupForm = () => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
@@ -13,15 +14,19 @@ const SignupForm = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const handleInputChange = (event) => {
+  
     const { name, value } = event.target;
+    console.log({ ...userFormData, [name]: value })
     setUserFormData({ ...userFormData, [name]: value });
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
+    console.log(form.checkValidity())
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
