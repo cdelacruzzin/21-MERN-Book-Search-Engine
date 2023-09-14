@@ -30,7 +30,7 @@ type Query {
     users: [User]
     singleUser(userId: ID!): User
 }
-type mutation {
+type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     #removeBook(Book: bookId!): User
