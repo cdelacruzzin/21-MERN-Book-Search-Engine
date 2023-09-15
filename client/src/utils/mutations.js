@@ -32,7 +32,27 @@ export const USER_LOGIN = gql`
             }
         }
     }
-
-
 `
+
+// export const SAVEBOOK = gql`
+// saveBook($bookDetails: BookInput!, $user: userInput!) {
+//     saveBook(bookDetails: $bookDetails, user: $user){
+//         _id
+//         bookCount
+//         email
+//         password
+//         username
+//         savedBooks {
+//           _id
+//           authors
+//           bookId
+//           description
+//           image
+//           link
+//           title
+//         }
+//     }
+// }
+
+// `
 

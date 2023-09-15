@@ -5,11 +5,11 @@ import { useMutation } from '@apollo/client';
 
 import {USER_LOGIN} from '../utils/mutations';  //imports the GraphQL mutation for logging in
 
-import Auth from '../utils/auth';
+import Auth from '../utils/auth';   //Imports the "Auth" module from the utils directory
 
 const LoginForm = () => {
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-  const [validated] = useState(false);
+  const [userFormData, setUserFormData] = useState({ email: '', password: '' });  // initialize state for the "userFormData" form field
+  const [validated] = useState(false);  //initialize the state for 
   const [showAlert, setShowAlert] = useState(false);
 
 
@@ -42,10 +42,12 @@ const LoginForm = () => {
       const {data} = await login({
         variables: {...userFormData}
       });
+      // calls the "login" function from the Auth module.
+      //passes the user's login token.
+      // console.log(data)
+      // console.log(`login token: ${data.login.token}`)
+      Auth.login(data.login.token);   
 
-      console.log(data.login.token);
-      Auth.login(data.login.token);
-      
     } catch (error) {
       console.log(error)
     }
@@ -55,7 +57,7 @@ const LoginForm = () => {
       username: '',
       email: '',
       password: '',
-    });
+    }); 
   };
 
   return (

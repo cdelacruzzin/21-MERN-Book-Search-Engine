@@ -11,7 +11,10 @@ const resolvers = {
             return User.findById(userId);
         },
         me: async (parent, args, context) => {
-            // if(context.)
+            if(context._id){
+                return User.findById(context._id);
+            }
+            throw new AuthenticationError('You need to be logged in!');
         }
     },
     Mutation: {
@@ -20,7 +23,7 @@ const resolvers = {
             const token = signToken(user);
             return {token, user};
         },
-        login: async (parent, {email, password})=> {
+        login: async (parent, {email, password}, context)=> {
             const user = await User.findOne({email});
             if(!user){
                 throw new AuthenticationError("no user with this email");
@@ -30,6 +33,8 @@ const resolvers = {
                 throw new AuthenticationError('Incorrect password');
             }
             const token = signToken(user); 
+            // console.log(`signToken: ${token}`)
+            // console.log(context._id)
             return {token, user};
         },
         saveBook: async (parent, {bookDetails, user}) => {

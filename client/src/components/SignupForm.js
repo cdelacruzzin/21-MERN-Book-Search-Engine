@@ -44,7 +44,7 @@ const SignupForm = () => {
       setUserFormData({
         username: '', email: '', password: ''
       })
-      console.log(data.addUser.token)
+      // console.log(data.addUser.token)
       Auth.login(data.addUser.token);   //passes the user token to the login function in the Auth utils
 
     } catch (err) {
