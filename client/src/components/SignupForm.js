@@ -3,6 +3,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 
+//import the ADD_USER GraphQL mutation from the utils directory
 import { ADD_USER } from '../utils/mutations';
 
 
@@ -14,6 +15,10 @@ const SignupForm = () => {
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
+  /**Invokes the "useMutation()" hook from Apollo Client.
+   * The hook provides functions related to the mutation.
+   * "addProfile" is a function to trigger the mutation.
+   */
   const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleInputChange = (event) => {
@@ -31,17 +36,19 @@ const SignupForm = () => {
     }
 
     try {
-      const data = await addUser({
+      //Execute the mutation by calling the "addUser" function.
+      // The mutation requires username, email, password variables.
+      const {data} = await addUser({
         variables: { ...userFormData }
       });
       setUserFormData({
         username: '', email: '', password: ''
       })
+      console.log(data.addUser.token)
+      Auth.login(data.addUser.token);   //passes the user token to the login function in the Auth utils
 
-      console.log(data);
-      console.log(Auth.loggedIn(data.addUser.token));
     } catch (err) {
-      
+      console.log(err);
       setShowAlert(true);
     }
   };
