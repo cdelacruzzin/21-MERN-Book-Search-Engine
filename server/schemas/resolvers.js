@@ -1,5 +1,5 @@
 const {AuthenticationError} = require('apollo-server-express');
-const {User} = require('../models');
+const {User, bookSchema} = require('../models');
 const {signToken} = require('../utils/auth');
 
 const resolvers = {
@@ -31,6 +31,17 @@ const resolvers = {
             }
             const token = signToken(user);
             return {token, user};
+        },
+        saveBook: async (parent, {bookDetails, user}) => {
+
+            const {_id, username} = user;
+
+            const selecteduser = await User.findById(_id);
+
+            selecteduser.savedBooks.push(bookDetails);
+
+            return selecteduser;
+
         }
 
     }
