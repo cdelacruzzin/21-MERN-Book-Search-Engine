@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 
-import {USER_LOGIN} from '../utils/mutations';
+import {USER_LOGIN} from '../utils/mutations';  //imports the GraphQL mutation for logging in
 
 import Auth from '../utils/auth';
 
@@ -13,6 +13,11 @@ const LoginForm = () => {
   const [showAlert, setShowAlert] = useState(false);
 
 
+  /**
+   * Initializing the mutation function using "useMutation" hook from Apollo Client.
+   * the first element "login" is a function to execute the mutation.
+   * 2nd element provides any errors that arise in the mutation.
+   */
   const [login, {error}] = useMutation(USER_LOGIN);
 
   const handleInputChange = (event) => {
@@ -20,8 +25,10 @@ const LoginForm = () => {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+
+  //async function to handle the form submission
   const handleFormSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault();   //prevents the default form submission behaviour
 
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
@@ -31,9 +38,11 @@ const LoginForm = () => {
     }
 
     try {
+      //calls the "login" mutation function and passes a shallow copy of "userFormData" as its variables
       const {data} = await login({
         variables: {...userFormData}
       });
+
       console.log(data.login.token);
       Auth.login(data.login.token);
       
@@ -41,6 +50,7 @@ const LoginForm = () => {
       console.log(error)
     }
 
+    //clears the form data input fields
     setUserFormData({
       username: '',
       email: '',
