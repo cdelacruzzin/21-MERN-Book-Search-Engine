@@ -50,7 +50,7 @@ type Mutation {
 
     addUser(username: String!, email: String!, password: String!): Auth
 
-    removeBook(Book: String!): User
+    removeBook(bookId: String!, userId: ID!): User
 
     saveBook(bookDetails: BookInput!, user: userInput!): User
 }

@@ -39,13 +39,20 @@ const resolvers = {
             const selecteduser = await User.findById(_id);
 
             selecteduser.savedBooks.push(bookDetails);
+            await selecteduser.save();
 
             return selecteduser;
+        },
+        removeBook: async (parent, {bookId, userId})=>{
 
-        }
-
-    }
-}
+            return User.findOneAndUpdate(
+                {_id: userId},
+                {$pull: {savedBooks: {bookId: bookId}}},
+                {new: true},
+            );
+        },
+    },
+};
 
 
 module.exports = resolvers;
