@@ -23,7 +23,7 @@ const SavedBooks = () => {
   // console.log(useQuery(USERS))
 
     const { loading, data, error } = useQuery(ME);
-    console.log(data)
+    // console.log(data)
 
   const [userData, setUserData] = useState({});
 
@@ -31,9 +31,6 @@ const SavedBooks = () => {
   const userDataLength = Object.keys(userData).length;
 
   useEffect(() => {
-
-
-
     const getUserData = async () => {
       try {
         const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -42,24 +39,16 @@ const SavedBooks = () => {
         if (!token) {
           return false;
         }
-        
-        // console.log(userData)
-        // const response = await getMe(token);
-        // // console.log(response)
-
-        // if (!response.ok) {
-        //   throw new Error('something went wrong!');
-        // }
-
-        // const user = await response.json();
-        // setUserData(user);
+        if (data && data.me) {
+          setUserData(data.me);
+        }
       } catch (err) {
         console.error(err);
       }
     };
 
     getUserData();
-  }, [userDataLength]);
+  }, [data]);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
