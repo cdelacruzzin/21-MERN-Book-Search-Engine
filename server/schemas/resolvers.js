@@ -29,7 +29,7 @@ const resolvers = {
             if(!correstPass){
                 throw new AuthenticationError('Incorrect password');
             }
-            const token = signToken(user);
+            const token = signToken(user); 
             return {token, user};
         },
         saveBook: async (parent, {bookDetails, user}) => {

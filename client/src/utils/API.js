@@ -10,7 +10,6 @@ export const getMe = (token) => {
 
 export const createUser = (userData) => {
   const data = JSON.stringify(userData)
-  console.log(data)
   return fetch('/api/users', {
     method: 'POST',
     headers: {
