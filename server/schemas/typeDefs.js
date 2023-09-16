@@ -40,8 +40,9 @@ input BookInput {
     link: String
 }
 input userInput{
-    _id: ID
-    username: String!
+    _id: ID!
+    username: String
+    email: String
 }
 
 

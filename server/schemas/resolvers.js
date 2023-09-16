@@ -12,7 +12,8 @@ const resolvers = {
         },
         me: async (parent, args, context) => {
             if(context._id){
-                return User.findById(context._id);
+                const user = await User.findById(context._id);
+                return user
             }
             throw new AuthenticationError('You need to be logged in!');
         }
@@ -38,9 +39,8 @@ const resolvers = {
             return {token, user};
         },
         saveBook: async (parent, {bookDetails, user}) => {
-
-            const {_id, username} = user;
-
+            console.log(user)
+            const {_id} = user;
             const selecteduser = await User.findById(_id);
 
             selecteduser.savedBooks.push(bookDetails);

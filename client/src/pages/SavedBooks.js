@@ -14,7 +14,7 @@ import { USERS, ME } from '../utils/queries';
 const SavedBooks = () => {
 
   const { loading, data, error } = useQuery(ME); //calls the ME query using "useQuery", and extracting only loading, data, and error
-
+console.log(data);
   const [userData, setUserData] = useState({});
 
   // use this to determine if `useEffect()` hook needs to run again
