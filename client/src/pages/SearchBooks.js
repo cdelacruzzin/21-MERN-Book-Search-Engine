@@ -64,7 +64,7 @@ const SearchBooks = () => {
       const saveBook = await book2save({
         variables: { bookDetails: {...bookData}, user: {...user} }
       })
-      setSavedBookIds([...savedBookIds, bookData]);   // takes a shallow copy of the savedBookIds array, and appends the book data to that array. the returned array is what's passed to change the state of "savedBookIds"
+      setSavedBookIds([...savedBookIds, bookData.bookId]);   // takes a shallow copy of the savedBookIds array, and appends the book data to that array. the returned array is what's passed to change the state of "savedBookIds"
     } catch (error) {
       console.log(error)
     }

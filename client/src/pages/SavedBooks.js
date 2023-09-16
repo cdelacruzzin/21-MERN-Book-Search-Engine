@@ -27,7 +27,7 @@ const SavedBooks = () => {
 
     // data and data.me checks if "data" exists and if there's a "me" property inside it.
     // "data" may be undefined until the GraphQL query is completed.
-    console.log(data)
+    // console.log(data)
     if (data && data.me) {
       // if exists, the "userData" state is updated with the value of "data.me"
       setUserData(data.me);
@@ -39,14 +39,16 @@ const SavedBooks = () => {
 
   const [removeBook] = useMutation(REMOVEBOOK)
   const handleDeleteBook = async (bookId) => {
-    console.log(bookId);
+    // console.log(bookId);
     try {
       const user = Auth.getProfile().data;
-      console.log(user);
+      // console.log(user);
       const response = await removeBook({
         variables: {bookId: bookId, userId: user._id}
       })
-      console.log(response)
+
+      removeBookId(bookId);
+      console.log(removeBookId(bookId))
     } catch (error) {
       console.log(error)
     }
