@@ -6,24 +6,14 @@ import {
   Row,
   Col
 } from 'react-bootstrap';
-
-// import { getMe, deleteBook } from '../utils/API';
-import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
-import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { USERS, ME } from '../utils/queries';
 
 const SavedBooks = () => {
-  // const { loading, data } = useQuery(ME);
-  // console.log(Auth.getProfile());
-  // console.log(Auth.getToken());
-  // console.log(Auth.loggedIn());
-  // console.log(useQuery(USERS))
 
-    const { loading, data, error } = useQuery(ME);
-    // console.log(data)
+  const { loading, data, error } = useQuery(ME); //calls the ME query using "useQuery", and extracting only loading, data, and error
 
   const [userData, setUserData] = useState({});
 
@@ -31,47 +21,18 @@ const SavedBooks = () => {
   const userDataLength = Object.keys(userData).length;
 
   useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
-        // console.log(`token: ${token}`)
-
-        if (!token) {
-          return false;
-        }
-        if (data && data.me) {
-          setUserData(data.me);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    getUserData();
-  }, [data]);
+    // data and data.me checks if "data" exists and if there's a "me" property inside it.
+    // "data" may be undefined until the GraphQL query is completed.
+    if (data && data.me) {
+      // if exists, the "userData" state is updated with the value of "data.me"
+      setUserData(data.me);
+    }
+  }, [data]); // this "useEffect" will only run again if the value of "data" changes.
+  //When GraphQL query completes and get results, "data" changes, so "useEffect" runs again and update the "userData" state
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
-    // const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    // if (!token) {
-    //   return false;
-    // }
-
-    // try {
-    //   const response = await deleteBook(bookId, token);
-
-    //   if (!response.ok) {
-    //     throw new Error('something went wrong!');
-    //   }
-
-    //   const updatedUser = await response.json();
-    //   setUserData(updatedUser);
-    //   // upon success, remove book's id from localStorage
-    //   removeBookId(bookId);
-    // } catch (err) {
-    //   console.error(err);
-    // }
   };
 
   // if data isn't here yet, say so
