@@ -45,6 +45,5 @@ mutation Mutation($bookDetails: BookInput!, $user: userInput!) {
       savedBooks
     }
   }
-
 `
 

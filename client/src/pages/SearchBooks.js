@@ -63,12 +63,11 @@ const SearchBooks = () => {
       const user = Auth.getProfile().data;
       console.log(bookData);
       console.log(user);
-      console.log({bookData});
-      console.log({user});
       const saveBook = await book2save({
         variables: { bookDetails: {...bookData}, user: {...user} }
       })
       console.log(saveBook);
+      console.log('ok')
     } catch (error) {
       console.log(error)
     }
