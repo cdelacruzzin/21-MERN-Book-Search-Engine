@@ -34,8 +34,6 @@ const resolvers = {
                 throw new AuthenticationError('Incorrect password');
             }
             const token = signToken(user);
-            // console.log(`signToken: ${token}`)
-            // console.log(context._id)
             return { token, user };
         },
         saveBook: async (parent, { bookDetails, user }) => {
@@ -46,7 +44,7 @@ const resolvers = {
                     { $push: { savedBooks: bookDetails } },
                     { new: true }
                 )
-                .populate('savedBooks'); // Populate savedBooks to get the full book details
+                    .populate('savedBooks'); // Populate savedBooks to get the full book details
 
                 return selecteduser;
             } catch (error) {
@@ -55,12 +53,17 @@ const resolvers = {
 
         },
         removeBook: async (parent, { bookId, userId }) => {
+            try {
+                return User.findOneAndUpdate(
+                    { _id: userId },
+                    { $pull: { savedBooks: { bookId: bookId } } },
+                    { new: true },
+                )
+                    .populate('savedBooks');// Populate savedBooks to get the full book details
+            } catch (error) {
+                console.log(error)
+            }
 
-            return User.findOneAndUpdate(
-                { _id: userId },
-                { $pull: { savedBooks: { bookId: bookId } } },
-                { new: true },
-            );
         },
     },
 };

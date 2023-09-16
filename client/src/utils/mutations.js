@@ -32,7 +32,7 @@ export const USER_LOGIN = gql`
             }
         }
     }
-`
+`;
 
 export const SAVEBOOK = gql`
 mutation Mutation($bookDetails: BookInput!, $user: userInput!) {
@@ -52,5 +52,24 @@ mutation Mutation($bookDetails: BookInput!, $user: userInput!) {
       }
     }
   }
-`
+`;
+
+export const REMOVEBOOK = gql`
+mutation Mutation($bookId: String!, $userId: ID!) {
+    removeBook(bookId: $bookId, userId: $userId) {
+      _id
+      username
+      bookCount
+      email
+      password
+      savedBooks {
+        authors
+        bookId
+        description
+        title
+      }
+
+    }
+  }
+`;
 

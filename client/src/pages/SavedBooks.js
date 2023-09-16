@@ -7,9 +7,10 @@ import {
   Col
 } from 'react-bootstrap';
 import { removeBookId } from '../utils/localStorage';
-
-import { useQuery } from '@apollo/client';
+import Auth from '../utils/auth';
+import { useQuery, useMutation } from '@apollo/client';
 import { USERS, ME } from '../utils/queries';
+import {REMOVEBOOK} from '../utils/mutations';
 
 const SavedBooks = () => {
 
@@ -35,8 +36,20 @@ const SavedBooks = () => {
   //When GraphQL query completes and get results, "data" changes, so "useEffect" runs again and update the "userData" state
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
-  const handleDeleteBook = async (bookId) => {
 
+  const [removeBook] = useMutation(REMOVEBOOK)
+  const handleDeleteBook = async (bookId) => {
+    console.log(bookId);
+    try {
+      const user = Auth.getProfile().data;
+      console.log(user);
+      const response = await removeBook({
+        variables: {bookId: bookId, userId: user._id}
+      })
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   // if data isn't here yet, say so
