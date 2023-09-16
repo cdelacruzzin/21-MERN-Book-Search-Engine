@@ -13,7 +13,9 @@ import { USERS, ME } from '../utils/queries';
 
 const SavedBooks = () => {
 
-  const { loading, data, error } = useQuery(ME); //calls the ME query using "useQuery", and extracting only loading, data, and error
+  const { loading, data, error } = useQuery(ME, {
+    fetchPolicy: 'network-only', // Doesn't check cache before making a network request
+  }); //calls the ME query using "useQuery", and extracting only loading, data, and error
 
   const [userData, setUserData] = useState({});
 
@@ -24,7 +26,7 @@ const SavedBooks = () => {
 
     // data and data.me checks if "data" exists and if there's a "me" property inside it.
     // "data" may be undefined until the GraphQL query is completed.
-    // console.log(data)
+    console.log(data)
     if (data && data.me) {
       // if exists, the "userData" state is updated with the value of "data.me"
       setUserData(data.me);
@@ -42,7 +44,7 @@ const SavedBooks = () => {
     return <h2>LOADING...</h2>;
   }
 
-  console.log(userData)
+  // console.log(userData)
   return (
     <>
       <div fluid className="text-light bg-dark p-5">
