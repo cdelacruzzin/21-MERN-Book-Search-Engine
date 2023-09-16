@@ -61,8 +61,6 @@ const SearchBooks = () => {
   const handleSaveBook = async (bookData) => {
     try {
       const user = Auth.getProfile().data;
-      console.log(bookData);
-      console.log(user);
       const saveBook = await book2save({
         variables: { bookDetails: {...bookData}, user: {...user} }
       })

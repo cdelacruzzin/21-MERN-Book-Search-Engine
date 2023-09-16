@@ -46,6 +46,8 @@ const resolvers = {
                     { $push: { savedBooks: bookDetails } },
                     { new: true }
                 )
+                .populate('savedBooks'); // Populate savedBooks to get the full book details
+
                 return selecteduser;
             } catch (error) {
                 console.log(error)

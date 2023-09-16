@@ -7,6 +7,15 @@ query Query {
       _id
       password
       username
+      savedBooks {
+        _id
+        authors
+        bookId
+        description
+        image
+        link
+        title
+      }
     }
   }
 `;

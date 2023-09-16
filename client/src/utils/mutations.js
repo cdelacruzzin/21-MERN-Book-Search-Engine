@@ -41,6 +41,15 @@ mutation Mutation($bookDetails: BookInput!, $user: userInput!) {
       bookCount
       email
       username
+      savedBooks {
+        _id
+        authors
+        bookId
+        description
+        image
+        link
+        title
+      }
     }
   }
 `
