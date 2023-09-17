@@ -6,14 +6,15 @@ import {
   Row,
   Col
 } from 'react-bootstrap';
-import { removeBookId } from '../utils/localStorage';
-import Auth from '../utils/auth';
-import { useQuery, useMutation } from '@apollo/client';
-import { USERS, ME } from '../utils/queries';
-import {REMOVEBOOK} from '../utils/mutations';
+import { removeBookId } from '../utils/localStorage';   //imports the removeBookId function from the localStorage utils file.
+import Auth from '../utils/auth'; //imports the Auth class to have access the authentication functions
+import { useQuery, useMutation } from '@apollo/client';   //imports useQuery and useMutation hook.
+import { ME } from '../utils/queries';  //imports the graphql "ME" query to fetch the current user's data
+import {REMOVEBOOK} from '../utils/mutations'; //imports the graphql REMOVEBOOK mutatio to remove a book from the current user's saveBook array field
 
 const SavedBooks = () => {
 
+  /**Executes ME using useQuery hook, which returns an object, but we are destructing to onlty extract loading, data, and error */
   const { loading, data, error } = useQuery(ME, {
     fetchPolicy: 'network-only', // Doesn't check cache before making a network request
   }); //calls the ME query using "useQuery", and extracting only loading, data, and error
@@ -39,10 +40,8 @@ const SavedBooks = () => {
 
   const [removeBook] = useMutation(REMOVEBOOK)
   const handleDeleteBook = async (bookId) => {
-    // console.log(bookId);
     try {
       const user = Auth.getProfile().data;
-      // console.log(user);
       const response = await removeBook({
         variables: {bookId: bookId, userId: user._id}
       })
@@ -60,8 +59,6 @@ const SavedBooks = () => {
   if (!userDataLength) {
     return <h2>LOADING...</h2>;
   }
-
-  // console.log(userData)
   return (
     <>
       <div fluid className="text-light bg-dark p-5">

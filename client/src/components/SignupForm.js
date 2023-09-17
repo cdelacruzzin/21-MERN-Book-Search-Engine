@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
-import Auth from '../utils/auth';
+import { useMutation } from '@apollo/client';   //imports the useMutation hook to allow you to mutate GraphQL data
+import Auth from '../utils/auth';   //imports the Auth class to access its functions
 
-//import the ADD_USER GraphQL mutation from the utils directory
-import { ADD_USER } from '../utils/mutations';
+import { ADD_USER } from '../utils/mutations';//import the ADD_USER GraphQL mutation from the utils directory
 
 
 const SignupForm = () => {
@@ -17,14 +16,16 @@ const SignupForm = () => {
 
   /**Invokes the "useMutation()" hook from Apollo Client.
    * The hook provides functions related to the mutation.
-   * "addProfile" is a function to trigger the mutation.
-   */
+   * "addUser" is a function to trigger the mutation.*/
   const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setUserFormData({ ...userFormData, [name]: value });
-  };
+    const { name, value } = event.target; //destructs event.target to only extract name, and value
+    /**creates a shallow copy of userFormData, [name] is an object literal, 
+     * in this case, it can either be username, email, or password. depends on the onChange from the input form
+     * It updates the value and assigns it to the name (type)
+    */
+    setUserFormData({ ...userFormData, [name]: value })};
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -37,14 +38,14 @@ const SignupForm = () => {
 
     try {
       //Execute the mutation by calling the "addUser" function.
-      // The mutation requires username, email, password variables.
+      // The mutation requires username, email, password variables, which is provided in the userFormData state
       const {data} = await addUser({
+        //sets a shallow copy of userFormData as the variables to not manipulate the original data directly.
         variables: { ...userFormData }
       });
       setUserFormData({
-        username: '', email: '', password: ''
+        username: '', email: '', password: ''   // sets the form data as empty strings
       })
-      // console.log(data.addUser.token)
       Auth.login(data.addUser.token);   //passes the user token to the login function in the Auth utils
 
     } catch (err) {

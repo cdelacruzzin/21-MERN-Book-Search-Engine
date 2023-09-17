@@ -8,23 +8,16 @@ module.exports = {
   // function for our authenticated routes
   authMiddleware: function ({req}) {
     // allows token to be sent via  req.query or headers
-
-    // console.log(req)
     let token = req.body.token || req.query.token || req.headers.authorization;
-    // console.log(token)
 
     // ["Bearer", "<tokenvalue>"]
-    if (req.headers.authorization) {
+    if (token) {
       token = token.split(' ').pop().trim();
     }
-
- 
     //if no token found, the middleware returns the request object unchanged(any resolver using this request is not authenticated)
     if (!token) {
       return req;
     }
-    console.log(`token: ${token}`);
-
     // verify token and get user data out of it
     try {
       //if the token is verified, the "verify" function will return the payload token
@@ -33,8 +26,6 @@ module.exports = {
     } catch {
       console.log('Invalid token');
     }
-
-
     return req.user; //return the request object so it can be passed to the resolver as "context"
   },
 

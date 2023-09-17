@@ -1,8 +1,7 @@
 // see SignupForm.js for comments
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
-
+import { useMutation } from '@apollo/client';   //imports useMutation hook from '@apollo/client' package to allow mutation og graphQL data
 import {USER_LOGIN} from '../utils/mutations';  //imports the GraphQL mutation for logging in
 
 import Auth from '../utils/auth';   //Imports the "Auth" module from the utils directory
@@ -44,8 +43,6 @@ const LoginForm = () => {
       });
       // calls the "login" function from the Auth module.
       //passes the user's login token.
-      // console.log(data)
-      // console.log(`login token: ${data.login.token}`)
       Auth.login(data.login.token);   
 
     } catch (error) {

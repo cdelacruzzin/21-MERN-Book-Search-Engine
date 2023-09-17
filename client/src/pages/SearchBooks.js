@@ -7,11 +7,11 @@ import {
   Card,
   Row
 } from 'react-bootstrap';
-import { useMutation, useQuery } from '@apollo/client';
-import Auth from '../utils/auth';
+import { useMutation } from '@apollo/client';   //imports the "useMutation" hook to allow you to mutate GraphQL data
+import Auth from '../utils/auth';   //imports the Auth module
 import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
-import { SAVEBOOK } from '../utils/mutations';
+import { SAVEBOOK } from '../utils/mutations';  //imports the GraphQL mutation to add a book object to a user document's saveBooks field
 
 
 const SearchBooks = () => {
@@ -56,10 +56,16 @@ const SearchBooks = () => {
   };
 
 
+  /**invokes the useMutation hook. "book2save" is a promise function to trigger the mutation. */
   const [book2save, { error }] = useMutation(SAVEBOOK);
   // create function to handle saving a book to our database
   const handleSaveBook = async (bookData) => {
     try {
+      /**gets the user data and stores it in user.
+       * executes the mutation by calling book2save function. the SAVEBOOK mutation requires bookDetails object, and user object variables.
+       * bookData is the Book object that contains all Book fields to be the value of bookDetails.
+       * the "user" object will be the value of user variable.
+       */
       const user = Auth.getProfile().data;
       const saveBook = await book2save({
         variables: { bookDetails: {...bookData}, user: {...user} }
