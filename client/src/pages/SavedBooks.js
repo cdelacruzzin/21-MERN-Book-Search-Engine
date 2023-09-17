@@ -47,8 +47,10 @@ const SavedBooks = () => {
         variables: {bookId: bookId, userId: user._id}
       })
 
+      /**passes the bookId to removeBookId().
+       * returns a boolean whether the bookId has been removed from local storage or not.
+       */
       removeBookId(bookId);
-      console.log(removeBookId(bookId))
     } catch (error) {
       console.log(error)
     }

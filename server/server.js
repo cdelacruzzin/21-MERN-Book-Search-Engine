@@ -1,4 +1,5 @@
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer } = require('apollo-server-express'); // Importing ApolloServer from the 'apollo-server-express' module to create a GraphQL server with Express.
+
 
 const express = require('express');
 const path = require('path');
