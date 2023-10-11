@@ -6,7 +6,7 @@ import {USER_LOGIN} from '../utils/mutations';  //imports the GraphQL mutation f
 
 import Auth from '../utils/auth';   //Imports the "Auth" module from the utils directory
 
-const LoginForm = () => {
+const LoginForm = ({handleModalClose}) => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });  // initialize state for the "userFormData" form field
   const [validated] = useState(false);  //initialize the state for 
   const [showAlert, setShowAlert] = useState(false);
@@ -45,6 +45,8 @@ const LoginForm = () => {
       //passes the user's login token.
       Auth.login(data.login.token);   
 
+      console.log(data)
+      handleModalClose();
     } catch (error) {
       console.log(error)
     }
@@ -91,7 +93,8 @@ const LoginForm = () => {
         <Button
           disabled={!(userFormData.email && userFormData.password)}
           type='submit'
-          variant='success'>
+          variant='success'
+          >
           Submit
         </Button>
       </Form>

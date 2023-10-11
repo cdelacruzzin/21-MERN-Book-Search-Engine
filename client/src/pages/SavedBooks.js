@@ -25,7 +25,7 @@ const SavedBooks = () => {
   const userDataLength = Object.keys(userData).length;
 
   useEffect(() => {
-
+console.log(data);
     // data and data.me checks if "data" exists and if there's a "me" property inside it.
     // "data" may be undefined until the GraphQL query is completed.
     // console.log(data)

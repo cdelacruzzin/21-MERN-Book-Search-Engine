@@ -11,6 +11,7 @@ const resolvers = {
             return User.findById(userId);
         },
         me: async (parent, args, context) => {
+            console.log(context)
             if (context._id) {
                 const user = await User.findById(context._id);
                 return user
