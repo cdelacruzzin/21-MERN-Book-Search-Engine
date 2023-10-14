@@ -5,6 +5,7 @@
 ## Overview
 
 [Explore the Live Site](https://graphql-book-search-engine-091b0d7dad44.herokuapp.com/) 
+![preview](/client/src/assets/Capture.PNG)
 
 
 Dive into this enhanced version of the Google Books search engine. Initially leveraging a RESTful API, I've elevated its functionality by transitioning to a GraphQL API through Apollo Server. Crafted with the MERN stack, this application integrates a React frontend, a MongoDB database, and a server/API structured with Node.js and Express.js. In this revamp, I've:
